@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
-    private User user; // Assuming User is a model class properly imported
+    private User user;
     private ActivityResultLauncher<String> launcher;
 
     @Override
