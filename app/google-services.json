@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "579204315558",
+    "project_id": "sportiverse-e9edc",
+    "storage_bucket": "sportiverse-e9edc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579204315558:android:009c3f3fd3c5c015df7767",
+        "android_client_info": {
+          "package_name": "edu.northeastern.sportiverse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzux5dQtbQ0nOz2m6JXAWP7b9-8E-e7-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
