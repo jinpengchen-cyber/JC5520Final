@@ -8,17 +8,21 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import edu.northeastern.sportiverse.Utils.utils;
 import edu.northeastern.sportiverse.databinding.ActivitySignUpBinding;
 import edu.northeastern.sportiverse.Models.User;
 import edu.northeastern.sportiverse.Utils.utils;
-
 import com.squareup.picasso.Picasso;
 
 public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
     private User user;
     private ActivityResultLauncher<String> launcher;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,30 +40,36 @@ public class SignUpActivity extends AppCompatActivity {
 
         launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
             if (uri != null) {
-                utils.uploadImage(uri, utils.USER_PROFILE_FOLDER, url -> {
-                    if (url != null) {
-                        user.setImage(String.valueOf(url));
+                utils.uploadImage(uri, utils.USER_PROFILE_FOLDER, this, new utils.UploadCallback() {
+                    @Override
+                    public void onUploadComplete(String url) {
+                        user.setImage(url);
                         Picasso.get().load(uri).into(binding.profileImage);
                     }
                 });
             }
         });
 
-        if (getIntent().hasExtra("MODE")) {
-            if (getIntent().getIntExtra("MODE", -1) == 1) {
-                binding.signUpBtn.setText("Update Profile");
-                FirebaseFirestore.getInstance().collection(utils.USER_NODE).document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get()
+
+        if (getIntent().hasExtra("MODE") && getIntent().getIntExtra("MODE", -1) == 1) {
+            binding.signUpBtn.setText("Sign Up");
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (firebaseUser != null) {
+                FirebaseFirestore.getInstance().collection(utils.USER_NODE).document(firebaseUser.getUid()).get()
                         .addOnSuccessListener(documentSnapshot -> {
-                            user = documentSnapshot.toObject(User.class);
-                            if (user != null && user.getImage() != null && !user.getImage().isEmpty()) {
-                                Picasso.get().load(user.getImage()).into(binding.profileImage);
+                            User retrievedUser = documentSnapshot.toObject(User.class);
+                            if (retrievedUser != null) {
+                                user = retrievedUser; // Assign the fetched user
+                                if (user.getImage() != null && !user.getImage().isEmpty()) {
+                                    Picasso.get().load(user.getImage()).into(binding.profileImage);
+                                }
+                                binding.name.getEditText().setText(user.getName());
+                                binding.email.getEditText().setText(user.getEmail());
                             }
-                            binding.name.getEditText().setText(user.getName());
-                            binding.email.getEditText().setText(user.getEmail());
-                            binding.password.getEditText().setText(user.getPassword());
                         });
             }
         }
+
 
         binding.signUpBtn.setOnClickListener(view -> {
             if (getIntent().hasExtra("MODE") && getIntent().getIntExtra("MODE", -1) == 1) {
