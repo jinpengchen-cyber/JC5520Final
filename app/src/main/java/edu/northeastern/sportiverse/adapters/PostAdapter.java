@@ -2,6 +2,7 @@ package edu.northeastern.sportiverse.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyHolder> {
             if (user != null && user.getImage() != null) {
                 Glide.with(context).load(user.getImage()).placeholder(R.drawable.user).into(holder.binding.profileImage);
                 holder.binding.name.setText(user.getName());
+                Log.d("PostAdapter", "User: " + user.getName());
             }
         }).addOnFailureListener(e -> {
             // Handle failure
