@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import edu.northeastern.sportiverse.activities.PostActivity;
-import edu.northeastern.sportiverse.activities.ReelsActivity;
 import edu.northeastern.sportiverse.databinding.FragmentAddBinding;
 
 public class AddFragment extends BottomSheetDialogFragment {
@@ -36,11 +35,11 @@ public class AddFragment extends BottomSheetDialogFragment {
             }
         });
 
-        binding.reel.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                getActivity().startActivity(new Intent(getContext(), ReelsActivity.class));
-            }
-        });
+//        binding.reel.setOnClickListener(v -> {
+//            if (getActivity() != null) {
+//                getActivity().startActivity(new Intent(getContext(), ReelsActivity.class));
+//            }
+//        });
 
         return binding.getRoot();
     }

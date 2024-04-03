@@ -20,10 +20,10 @@
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" />
     <fragment
-        android:id="@+id/reel"
-        android:name="edu.northeastern.sportiverse.fragments.ReelFragment"
-        android:label="fragment_reel"
-        tools:layout="@layout/fragment_reel" />
+        android:id="@+id/training"
+        android:name="edu.northeastern.sportiverse.fragments.TrainingFragment"
+        android:label="fragment_training"
+        tools:layout="@layout/fragment_training" />
     <fragment
         android:id="@+id/profile"
         android:name="edu.northeastern.sportiverse.fragments.ProfileFragment"

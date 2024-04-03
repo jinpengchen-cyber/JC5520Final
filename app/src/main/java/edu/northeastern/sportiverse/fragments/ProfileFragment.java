@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
 
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         viewPagerAdapter.addFragments(new MyPostFragment(), "My Post");
-        viewPagerAdapter.addFragments(new MyReelsFragment(), "My Reels");
+        viewPagerAdapter.addFragments(new MyCoursesFragment(), "My Courses");
         binding.viewPager.setAdapter(viewPagerAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 
