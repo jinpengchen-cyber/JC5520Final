@@ -1,6 +1,7 @@
 package edu.northeastern.sportiverse.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +46,16 @@ public class SearchFragment extends Fragment {
             }
             userList.addAll(tempList);
             adapter.notifyDataSetChanged();
+        }).addOnFailureListener(e -> {
+            Log.e("SearchDebug", "Error fetching initial user data", e);
+            // Here you can handle the error, e.g., show a message to the user
         });
 
         binding.searchButton.setOnClickListener(v -> {
             String text = binding.searchView.getText().toString();
+            Log.d("SearchDebug", "Search button clicked. Query: " + text);
             FirebaseFirestore.getInstance().collection(Constants.USER_NODE).whereEqualTo("name", text).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                Log.d("SearchDebug", "Firestore search success. Number of documents fetched: " + queryDocumentSnapshots.size());
                 ArrayList<User> tempList = new ArrayList<>();
                 userList.clear();
                 if (!queryDocumentSnapshots.isEmpty()) {
@@ -64,6 +70,9 @@ public class SearchFragment extends Fragment {
                     userList.addAll(tempList);
                     adapter.notifyDataSetChanged();
                 }
+            }).addOnFailureListener(e -> {
+                Log.e("SearchDebug", "Search query failed", e);
+                // Here you can handle the error, e.g., show a message to the user
             });
         });
 
