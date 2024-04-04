@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import edu.northeastern.sportiverse.Models.Post;
 import edu.northeastern.sportiverse.Models.User;
@@ -65,7 +66,9 @@ public class HomeFragment extends Fragment {
                     followAdapter.notifyDataSetChanged();
                 });
 
-        FirebaseFirestore.getInstance().collection(POST).get().addOnSuccessListener(queryDocumentSnapshots -> {
+        FirebaseFirestore.getInstance().collection(POST)
+                .orderBy("time", Query.Direction.DESCENDING) // order by time in descending order
+                .get().addOnSuccessListener(queryDocumentSnapshots -> {
             ArrayList<Post> tempList = new ArrayList<>();
             postList.clear();
             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {

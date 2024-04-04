@@ -63,7 +63,7 @@ public class PostActivity extends AppCompatActivity {
                     imageUrl,
                     binding.caption.getEditText().getText().toString(),
                     FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                    Long.toString(System.currentTimeMillis())
+                    System.currentTimeMillis() // Directly set the timestamp here
             );
 
             FirebaseFirestore.getInstance().collection(Constants.POST).document().set(post).addOnSuccessListener(unused -> {

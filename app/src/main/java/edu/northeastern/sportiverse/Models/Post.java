@@ -16,7 +16,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(String id, String title, String description, String image, String userId, String userName, String userImage, String date) {
+    public Post(String id, String title, String description, String image, String userId, String userName, String userImage, long time) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -24,15 +24,14 @@ public class Post {
         this.userId = userId;
         this.userName = userName;
         this.userImage = userImage;
-        this.date = date;
+        this.time = time;
     }
 
-    public Post(String image, String description, String userId, String time) {
+    public Post(String image, String description, String userId, long time) {
         this.image = image;
         this.description = description;
         this.userId = userId;
-        this.date = time; // Assuming 'date' field should hold the time value. Adjust as needed.
-        // Initialize other fields as necessary, or leave them to be set via setters.
+        this.time = time;
     }
 
     public String getId() {
