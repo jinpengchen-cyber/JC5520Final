@@ -27,6 +27,7 @@
         <activity android:name=".HomeActivity"/>
         <activity android:name=".activities.PostActivity"></activity>
         <activity android:name=".view.VideoPlayer"></activity>
+        <activity android:name=".activities.EditProfileActivity"></activity>
     </application>
 
 </manifest>

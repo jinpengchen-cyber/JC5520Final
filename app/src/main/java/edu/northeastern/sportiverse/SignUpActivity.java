@@ -93,6 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
                             user.setName(binding.name.getEditText().getText().toString());
                             user.setPassword(binding.password.getEditText().getText().toString());
                             user.setEmail(binding.email.getEditText().getText().toString());
+                            user.setAuthUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             FirebaseFirestore.getInstance().collection(utils.USER_NODE)
                                     .document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
                                     .addOnSuccessListener(aVoid -> {

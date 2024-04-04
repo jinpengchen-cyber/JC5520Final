@@ -7,6 +7,7 @@ public class User {
     private String email;
     private String password;
     private String image;
+    private String authUID;
 
     public User() {
     }
@@ -53,5 +54,13 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getAuthUID() {
+        return authUID;
+    }
+
+    public void setAuthUID(String authUID) {
+        this.authUID = authUID;
     }
 }
