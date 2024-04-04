@@ -27,7 +27,7 @@ public class AddFragment extends BottomSheetDialogFragment {
         // Inflate the layout for this fragment with view binding
         binding = FragmentAddBinding.inflate(inflater, container, false);
 
-        // Set up click listeners for your post and reel buttons
+        // Set up click listeners for your post
         binding.post.setOnClickListener(v -> {
             if (getActivity() != null) {
                 getActivity().startActivity(new Intent(getContext(), PostActivity.class));
@@ -35,11 +35,6 @@ public class AddFragment extends BottomSheetDialogFragment {
             }
         });
 
-//        binding.reel.setOnClickListener(v -> {
-//            if (getActivity() != null) {
-//                getActivity().startActivity(new Intent(getContext(), ReelsActivity.class));
-//            }
-//        });
 
         return binding.getRoot();
     }

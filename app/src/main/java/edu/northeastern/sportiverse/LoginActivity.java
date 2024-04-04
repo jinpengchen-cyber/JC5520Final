@@ -2,6 +2,8 @@ package edu.northeastern.sportiverse;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +38,25 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
             }
+        });
+
+        // Find the TextView for signup prompt
+        TextView signUpPrompt = findViewById(R.id.login);
+
+        // HTML styled text
+        String styledText = "Don't have an Account <font color='#1E88E5'>Signup?</font>";
+
+        // Apply the styled text depending on Android version
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            signUpPrompt.setText(Html.fromHtml(styledText, Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            signUpPrompt.setText(Html.fromHtml(styledText));
+        }
+
+        // Set OnClickListener to navigate to SignUpActivity
+        signUpPrompt.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+            startActivity(intent);
         });
     }
 }
