@@ -16,13 +16,10 @@ import edu.northeastern.sportiverse.databinding.ActivitySignUpBinding;
 import edu.northeastern.sportiverse.Models.User;
 import edu.northeastern.sportiverse.Utils.utils;
 import com.squareup.picasso.Picasso;
-
 public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
     private User user;
     private ActivityResultLauncher<String> launcher;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,7 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             binding.login.setText(Html.fromHtml(text));
         }
-        user = new User(); // Make sure this User class import matches your project structure
+        user = new User();
 
         launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
             if (uri != null) {
@@ -50,61 +47,31 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-
-        if (getIntent().hasExtra("MODE") && getIntent().getIntExtra("MODE", -1) == 1) {
-            binding.signUpBtn.setText("Sign Up");
-            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            if (firebaseUser != null) {
-                FirebaseFirestore.getInstance().collection(utils.USER_NODE).document(firebaseUser.getUid()).get()
-                        .addOnSuccessListener(documentSnapshot -> {
-                            User retrievedUser = documentSnapshot.toObject(User.class);
-                            if (retrievedUser != null) {
-                                user = retrievedUser; // Assign the fetched user
-                                if (user.getImage() != null && !user.getImage().isEmpty()) {
-                                    Picasso.get().load(user.getImage()).into(binding.profileImage);
-                                }
-                                binding.name.getEditText().setText(user.getName());
-                                binding.email.getEditText().setText(user.getEmail());
-                            }
-                        });
-            }
-        }
-
-
         binding.signUpBtn.setOnClickListener(view -> {
-            if (getIntent().hasExtra("MODE") && getIntent().getIntExtra("MODE", -1) == 1) {
-                FirebaseFirestore.getInstance().collection(utils.USER_NODE)
-                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
-                        .addOnSuccessListener(aVoid -> {
-                            startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
-                            finish();
-                        });
+            if (binding.name.getEditText().getText().toString().isEmpty() ||
+                    binding.email.getEditText().getText().toString().isEmpty() ||
+                    binding.password.getEditText().getText().toString().isEmpty()) {
+                Toast.makeText(SignUpActivity.this, "Please fill all the information", Toast.LENGTH_SHORT).show();
             } else {
-                if (binding.name.getEditText().getText().toString().isEmpty() ||
-                        binding.email.getEditText().getText().toString().isEmpty() ||
-                        binding.password.getEditText().getText().toString().isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please fill all the information", Toast.LENGTH_SHORT).show();
-                } else {
-                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                            binding.email.getEditText().getText().toString(),
-                            binding.password.getEditText().getText().toString()
-                    ).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            user.setName(binding.name.getEditText().getText().toString());
-                            user.setPassword(binding.password.getEditText().getText().toString());
-                            user.setEmail(binding.email.getEditText().getText().toString());
-                            user.setAuthUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                            FirebaseFirestore.getInstance().collection(utils.USER_NODE)
-                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
-                                    .addOnSuccessListener(aVoid -> {
-                                        startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
-                                        finish();
-                                    });
-                        } else {
-                            Toast.makeText(SignUpActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                        binding.email.getEditText().getText().toString(),
+                        binding.password.getEditText().getText().toString()
+                ).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        user.setName(binding.name.getEditText().getText().toString());
+                        user.setPassword(binding.password.getEditText().getText().toString());
+                        user.setEmail(binding.email.getEditText().getText().toString());
+                        user.setAuthUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        FirebaseFirestore.getInstance().collection(utils.USER_NODE)
+                                .document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
+                                .addOnSuccessListener(aVoid -> {
+                                    startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
+                                    finish();
+                                });
+                    } else {
+                        Toast.makeText(SignUpActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

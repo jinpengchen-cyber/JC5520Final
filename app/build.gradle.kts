@@ -68,4 +68,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.github.marlonlom:timeago:4.0.3")
     implementation ("com.makeramen:roundedimageview:2.3.0")
+    implementation ("com.google.android.gms:play-services-location:17.0.0")
+
 }

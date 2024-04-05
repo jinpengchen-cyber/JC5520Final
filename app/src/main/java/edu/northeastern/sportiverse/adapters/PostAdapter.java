@@ -1,9 +1,13 @@
 package edu.northeastern.sportiverse.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +19,11 @@ import edu.northeastern.sportiverse.Models.User;
 import edu.northeastern.sportiverse.R;
 import edu.northeastern.sportiverse.databinding.PostRvBinding;
 import static edu.northeastern.sportiverse.Utils.Constants.USER_NODE;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyHolder> {
 
@@ -57,6 +65,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyHolder> {
         } catch (Exception e) {
             holder.binding.time.setText("");
         }
+
+        // Check for valid location data
+        if (post.getLatitude() != null && post.getLongitude() != null) {
+            new Thread(() -> {
+                try {
+                    Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+                    List<Address> addresses = geocoder.getFromLocation(post.getLatitude(), post.getLongitude(), 1);
+                    if (!addresses.isEmpty()) {
+                        // Attempting to get a more descriptive part of the address
+                        String address = addresses.get(0).getAddressLine(0); // This should give you a full address
+                        // Update UI on the main thread
+                        ((Activity) context).runOnUiThread(() -> holder.binding.locationText.setText(address));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        } else {
+            holder.binding.locationText.setVisibility(View.GONE);
+        }
+
 
         holder.binding.share.setOnClickListener(v -> {
             Intent i = new Intent(Intent.ACTION_SEND);

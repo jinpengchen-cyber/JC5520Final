@@ -38,6 +38,4 @@ public class AddFragment extends BottomSheetDialogFragment {
 
         return binding.getRoot();
     }
-
-    // Optionally, if you have any static factory methods or companion object functionality, convert them here.
 }

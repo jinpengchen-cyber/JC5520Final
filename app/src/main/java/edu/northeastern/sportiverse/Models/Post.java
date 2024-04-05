@@ -12,11 +12,13 @@ public class Post {
     private String date;
 
     private long time;
+    private Double latitude;
+    private Double longitude;
 
     public Post() {
     }
 
-    public Post(String id, String title, String description, String image, String userId, String userName, String userImage, long time) {
+    public Post(String id, String title, String description, String image, String userId, String userName, String userImage, long time, Double latitude, Double longitude) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -25,13 +27,17 @@ public class Post {
         this.userName = userName;
         this.userImage = userImage;
         this.time = time;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public Post(String image, String description, String userId, long time) {
+    public Post(String image, String description, String userId, long time, Double latitude, Double longitude) {
         this.image = image;
         this.description = description;
         this.userId = userId;
         this.time = time;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getId() {
@@ -130,6 +136,23 @@ public class Post {
 
     public void setCaption(String description) {
         this.description = description;
+    }
+
+    // Update your getter and setter methods to use 'Double'
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
 
