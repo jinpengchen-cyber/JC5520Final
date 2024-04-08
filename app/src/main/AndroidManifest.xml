@@ -33,6 +33,7 @@
         <activity android:name=".activities.PostActivity"></activity>
         <activity android:name=".view.VideoPlayer"></activity>
         <activity android:name=".activities.EditProfileActivity"></activity>
+        <activity android:name=".EditPostActivity"></activity>
     </application>
 
 </manifest>
