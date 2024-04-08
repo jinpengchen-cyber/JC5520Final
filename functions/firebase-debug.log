@@ -1,0 +1,63 @@
+[debug] [2024-04-05T23:26:49.431Z] ----------------------------------------------------------------------
+[debug] [2024-04-05T23:26:49.433Z] Command:       /usr/local/bin/firebase /Users/jinpengchen/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase init
+[debug] [2024-04-05T23:26:49.433Z] CLI Version:   13.7.1
+[debug] [2024-04-05T23:26:49.433Z] Platform:      darwin
+[debug] [2024-04-05T23:26:49.433Z] Node Version:  v18.5.0
+[debug] [2024-04-05T23:26:49.434Z] Time:          Fri Apr 05 2024 19:26:49 GMT-0400 (Eastern Daylight Time)
+[debug] [2024-04-05T23:26:49.435Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-05T23:26:49.514Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-05T23:26:49.515Z] > authorizing via signed-in user (mail.jc86@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/jinpengchen/AndroidStudioProjects/Sportiverse
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-04-05T23:26:56.030Z] Using project from CLI flag: sportiverse-e9edc
+[debug] [2024-04-05T23:26:56.032Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sportiverse-e9edc [none]
+[debug] [2024-04-05T23:26:56.576Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sportiverse-e9edc 200
+[debug] [2024-04-05T23:26:56.577Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sportiverse-e9edc {"projectId":"sportiverse-e9edc","projectNumber":"579204315558","displayName":"Sportiverse","name":"projects/sportiverse-e9edc","resources":{"hostingSite":"sportiverse-e9edc","realtimeDatabaseInstance":"sportiverse-e9edc-default-rtdb","storageBucket":"sportiverse-e9edc.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_3f15ea0c-5ad8-4be7-b933-5d2e33ec8645"}
+[info] i  Using project sportiverse-e9edc (Sportiverse) 
+[info] 
+=== Functions Setup
+[debug] [2024-04-05T23:26:56.585Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-05T23:26:56.587Z] > authorizing via signed-in user (mail.jc86@gmail.com)
+[debug] [2024-04-05T23:26:56.587Z] [iam] checking project sportiverse-e9edc for permissions ["firebase.projects.get"]
+[debug] [2024-04-05T23:26:56.588Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/sportiverse-e9edc:testIamPermissions [none]
+[debug] [2024-04-05T23:26:56.588Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/sportiverse-e9edc:testIamPermissions x-goog-quota-user=projects/sportiverse-e9edc
+[debug] [2024-04-05T23:26:56.588Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sportiverse-e9edc:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-04-05T23:26:56.783Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/sportiverse-e9edc:testIamPermissions 200
+[debug] [2024-04-05T23:26:56.785Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sportiverse-e9edc:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-04-05T23:26:56.786Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sportiverse-e9edc/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-04-05T23:26:56.786Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sportiverse-e9edc/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/sportiverse-e9edc
+[debug] [2024-04-05T23:26:56.793Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/sportiverse-e9edc/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-04-05T23:26:56.794Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/sportiverse-e9edc/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/sportiverse-e9edc
+[debug] [2024-04-05T23:26:57.360Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sportiverse-e9edc/services/runtimeconfig.googleapis.com 200
+[debug] [2024-04-05T23:26:57.362Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sportiverse-e9edc/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-04-05T23:26:57.364Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/sportiverse-e9edc/services/cloudfunctions.googleapis.com 200
+[debug] [2024-04-05T23:26:57.364Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/sportiverse-e9edc/services/cloudfunctions.googleapis.com [omitted]
+[info] 
+Detected existing codebase(s): default
+
+[info] 
+Overwriting codebase default...
+
+[info] ✔  Wrote functions/package.json 
+[info] ✔  Wrote functions/index.js 

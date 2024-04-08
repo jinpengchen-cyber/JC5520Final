@@ -1,5 +1,7 @@
 package edu.northeastern.sportiverse.Models;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class User {
 
 
@@ -8,15 +10,17 @@ public class User {
     private String password;
     private String image;
     private String authUID;
+    private String fcmToken; // FCM token field
 
     public User() {
     }
 
-    public User(String name, String email, String password, String image) {
+    public User(String name, String email, String password, String image, String fcmToken) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.image = image;
+        this.fcmToken = fcmToken;
     }
 
     public User(String email, String password) {
@@ -62,5 +66,21 @@ public class User {
 
     public void setAuthUID(String authUID) {
         this.authUID = authUID;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
+    // Add a method to update the FCM token in Firestore
+    public void updateTokenToFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (authUID != null && !authUID.isEmpty() && fcmToken != null) {
+            db.collection("Users").document(authUID).update("fcmToken", fcmToken);
+        }
     }
 }

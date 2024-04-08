@@ -1,0 +1,35 @@
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
+
+exports.sendFollowNotification = functions.firestore
+    .document('Users/{userId}/FOLLOW/{followerId}')
+    .onCreate((snap, context) => {
+        const followedUserId = context.params.userId;
+        const followerUserId = snap.data().followerId;
+
+        // Retrieve the followed user's FCM token from their document
+        const usersRef = admin.firestore().collection('Users');
+        return usersRef.doc(followedUserId).get().then(followedUserDoc => {
+            if (followedUserDoc.exists && followedUserDoc.data().fcmToken) {
+                const fcmToken = followedUserDoc.data().fcmToken;
+
+                // Construct the notification message
+                const message = {
+                    notification: {
+                        title: 'New Follower',
+                        body: `You have a new follower!`
+                    },
+                    token: fcmToken
+                };
+
+                // Send the notification to the followed user's device
+                return admin.messaging().send(message);
+            } else {
+                throw new Error('FCM token not found for followed user.');
+            }
+        }).catch(error => {
+            console.error('Failed to send notification:', error);
+        });
+    });
+

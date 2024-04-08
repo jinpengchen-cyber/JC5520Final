@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.github.marlonlom.utilities.timeago.TimeAgo;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import edu.northeastern.sportiverse.Models.Post;
 import edu.northeastern.sportiverse.Models.User;
@@ -22,8 +24,10 @@ import static edu.northeastern.sportiverse.Utils.Constants.USER_NODE;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyHolder> {
 
@@ -95,7 +99,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyHolder> {
         });
 
         holder.binding.csption.setText(post.getCaption());
-        holder.binding.like.setOnClickListener(v -> holder.binding.like.setImageResource(R.drawable.heart_like));
+        holder.binding.like.setOnClickListener(v -> {
+            holder.binding.like.setImageResource(R.drawable.heart_like);
+            // Assuming post and user IDs are correctly set
+            String likerUserId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // ID of the user who liked the post
+            String postOwnerId = post.getUid(); // ID of the user who owns the post
+            String postId = post.getId(); // The ID of the post being liked
+
+            // Prepare notification data
+            Map<String, Object> notificationDetails = new HashMap<>();
+            notificationDetails.put("likerId", likerUserId);
+            notificationDetails.put("type", "like");
+            notificationDetails.put("postId", postId);
+            notificationDetails.put("message", "Someone liked your post!");
+
+            // Update Realtime Database with notification data
+            FirebaseDatabase.getInstance().getReference("postLikesNotifications")
+                    .child(postOwnerId) // Notify the owner of the post
+                    .push() // Generates a unique ID for the notification
+                    .setValue(notificationDetails);
+        });
+
     }
 
     @Override
