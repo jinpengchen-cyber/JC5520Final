@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseAuth.getInstance().signOut();
+//        FirebaseAuth.getInstance().signOut();
 
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
